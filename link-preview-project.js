@@ -1,84 +1,33 @@
-/**
- * Copyright 2025 dylanmin132\
- * @license Apache-2.0, see LICENSE for full text.
- */
-import { LitElement, html, css } from "lit";
-import { DDDSuper } from "@haxtheweb/d-d-d/d-d-d.js";
-import { I18NMixin } from "@haxtheweb/i18n-manager/lib/I18NMixin.js";
+async function getData(link) {
+  const url = `https://open-apis.hax.cloud/api/services/website/metadata?q=${link}`;
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`Response status: ${response.status}`);
+    }
 
-/**
- * `link-preview-project`
- * 
- * @demo index.html
- * @element link-preview-project
- */
-export class LinkPreviewProject extends DDDSuper(I18NMixin(LitElement)) {
+    const json = await response.json();
+    console.log(json.data);
 
-  static get tag() {
-    return "link-preview-project";
-  }
+    // Update the DOM with metadata
+    document.querySelector('#here').innerHTML = JSON.stringify(json.data, null, 2); // Debugging
+    document.querySelector('#there').innerHTML = json.data["og:site_name"] || "Site name not available";
 
-  constructor() {
-    super();
-    this.title = "";
-    this.t = this.t || {};
-    this.t = {
-      ...this.t,
-      title: "Title",
-    };
-    this.registerLocalization({
-      context: this,
-      localesPath:
-        new URL("./locales/link-preview-project.ar.json", import.meta.url).href +
-        "/../",
-      locales: ["ar", "es", "hi", "zh"],
-    });
-  }
-
-  // Lit reactive properties
-  static get properties() {
-    return {
-      ...super.properties,
-      title: { type: String },
-    };
-  }
-
-  // Lit scoped styles
-  static get styles() {
-    return [super.styles,
-    css`
-      :host {
-        display: block;
-        color: var(--ddd-theme-primary);
-        background-color: var(--ddd-theme-accent);
-        font-family: var(--ddd-font-navigation);
-      }
-      .wrapper {
-        margin: var(--ddd-spacing-2);
-        padding: var(--ddd-spacing-4);
-      }
-      h3 span {
-        font-size: var(--link-preview-project-label-font-size, var(--ddd-font-size-s));
-      }
-    `];
-  }
-
-  // Lit render the HTML
-  render() {
-    return html`
-<div class="wrapper">
-  <h3><span>${this.t.title}:</span> ${this.title}</h3>
-  <slot></slot>
-</div>`;
-  }
-
-  /**
-   * haxProperties integration via file reference
-   */
-  static get haxProperties() {
-    return new URL(`./lib/${this.tag}.haxProperties.json`, import.meta.url)
-      .href;
+    // Add more preview details if available
+    if (json.data['url']) {
+      console.log(json.data['url']);
+    }
+  } catch (error) {
+    console.error(error.message);
   }
 }
 
-globalThis.customElements.define(LinkPreviewProject.tag, LinkPreviewProject);
+// Attach the function to the button click
+document.getElementById("generatePreview").addEventListener("click", () => {
+  const link = document.getElementById("urlInput").value; // Get the URL from input
+  if (link) {
+    getData(link); // Call the fetch function with the user's link
+  } else {
+    alert("Please enter a valid link!");
+  }
+});
