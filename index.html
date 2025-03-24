@@ -2,38 +2,42 @@
 <html lang="en">
 
 <head>
-  <base href="/">
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <meta name="Description" content="Demonstration for link-preview-project">
-
-  <style>
-    :root, html, body {
-      margin: 0;
-      padding: 0;
-    }
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="description" content="Demonstration for link-preview-project">
     
-    #linkPreview {
-      border: 1px solid;
-      padding: 10px;
-      margin-top: 10px;
-      display: none;
-    }
-
-    img {
-      max-width: 100px;
-      display: block;
-      margin-top: 10px;
-    }
+    <style>
+        :root, html, body {
+            margin: --ddd-spacing-0;
+            padding: --ddd-spacing-0;
+        }
+        
+        link-preview-project {
+            border: --ddd-border-xs;
+            padding: --ddd-spacing-3;
+            margin: --ddd-spacing-2;
+        }
+    </style>
     
-  </style>
-  <title>link-preview-project</title>
+    <title>link-preview-project</title>
 </head>
-
 <body>
-  <div id="demo">
-  <h1>link-preview-project</h1>
-  </div>
-  <script type="module" src="./link-preview-project.js"></script>
+    <div id="demo">
+        <h1>link-preview-project</h1>
+        
+        <p>This is the main Hax PSU website.</p>
+        <link-preview-project href="https://hax.psu.edu"></link-preview-project>
+        
+        <p>This is the website for Target.</p>
+        <link-preview-project href="https://www.target.com"></link-preview-project>
+        
+        <p>This is the website for YouTube.</p>
+        <link-preview-project href="https://www.youtube.com"></link-preview-project>
+        
+        <p>This is the website for ebay.</p>
+        <link-preview-project href="https://www.ebay.com"></link-preview-project>
+    </div>
+    
+    <script type="module" src="./link-preview-project.js"></script>
 </body>
 </html>
