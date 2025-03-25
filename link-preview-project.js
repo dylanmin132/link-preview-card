@@ -26,13 +26,6 @@ constructor() {
   this.link="";
   this.theme="";
   this.isLoading=false;
-
-  this.registerLocalization({
-    context: this,
-    localesPath:
-      new URL("./locales/link-preview.ar.json", import.meta.url).href +
-      "/../"
-  });
 }
 
 static get properties() {
